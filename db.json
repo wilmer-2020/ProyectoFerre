@@ -1,0 +1,19 @@
+{
+  "Construccion": [
+    {
+      "id": 1,
+      "name": "cemento",
+      "precioUnitario": 120
+    },
+    {
+      "id": 2,
+      "name": "varilla",
+      "precioUnitario": 150
+    },
+    {
+      "id": 2,
+      "name": "bloque",
+      "precioUnitario": 200
+    }
+  ]
+}
