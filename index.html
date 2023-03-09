@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-<header></header>
+<header>
+    <nav>
+        <h1>PLATAFORMA DE PRUEBA</h1>
+        <ul class="menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="">Acerca de Nosotros</a></li>
+            <li><a href="">Comentaios</a></li>
+        </ul>
+    </nav>
+</header>
 <div class="orden">
     <form action="">
         <div class="datacontainer">
             <label for="">Nombre</label>
-            <input type="text">
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre">
             <label for="">Numero de ID</label>
-            <input type="text">
+            <input type="text" name="numID" id="numID" placeholder="ID">
             <label for="">Telefono</label>
-            <input type="text">
+            <input type="text" name="telefono" id="telefono" placeholder="Telefono">
             <label for="">Direccion</label>
-            <input type="text">
+            <input type="text" name="direccion" id="direccion" placeholder="Direccion">
         </div>
         <div class="containerItems">
             <label for="">Tipo de Material</label>
@@ -36,7 +47,31 @@
                 <label for="">Total</label>
                 <input type="text" name="txtTotal" id="txtTotal">
         </div>
+        <input type="button" value="añadir" class="buttonAdd">
     </form>
+</div>
+<table class="table">
+    <caption>Registro de los pedidos</caption>
+    <tr>
+        <th>TIPO</th>
+        <th>MATERIAL</th>
+        <th>CANTIDAD</th>
+        <th>PRECIO U</th>
+        <th>TOTAL</th>
+    </tr>
+    <template class="template">
+      <tr>
+        <td class="tdTipo"></td>
+        <td class="tdMaterial"></td>
+        <td class="tdCantidad"></td>
+        <td class="tdPreU"></td>
+        <td class="tdTotal"></td>
+      </tr>
+    </template>
+</table>
+<div class="containerButtons">
+<input type="button" value="Crear Factura" class="btnFactura">
+<input type="button" value="Enviar Orden" class="btnEnviar">
 </div>
 <script src="app.js"></script>
 </body>

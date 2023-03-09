@@ -4,7 +4,8 @@ let $optionsType = document.getElementById('tipo').querySelector("option");
 let $optionsProduct = document.getElementById('material');
 let $inputCantidad = document.getElementById('txtCantidad')
 let $inputPrecio = document.getElementById('txtPrecio')
-let $inputTotal = document.getElementById('txtTotal')
+let $inputTotal = document.getElementById('txtTotal');
+let table = document.querySelector('.table');
 async function getAll() {
     if($optionsType.label === "construccion"){  
         let res = await fetch('http://localhost:5000/Construccion');
@@ -45,4 +46,42 @@ $optionsProduct.addEventListener('change', async e => {
             $inputPrecio.value = el.precioUnitario
         }
     });
+});
+
+document.addEventListener('click', e => {
+    let $fragment = document.createDocumentFragment();
+    if (e.target.matches(".buttonAdd")) {
+        let $template = document.querySelector(".template").content
+        $template.querySelector(".tdTipo").innerHTML = $optionsType.label;
+        $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
+        $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
+        $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
+        $template.querySelector(".tdTotal").innerHTML = $inputTotal.value;
+        let clone = document.importNode($template,true)
+        $fragment.appendChild(clone)
+        table.appendChild($fragment)
+   }
+   if (e.target.matches(".btnFactura")) {
+    html2pdf()
+    .set({
+        margin: 1,
+        filename: 'documento.pdf',
+        image: {
+            type: 'jpeg',
+            quality: 0.98
+        },
+        html2canvas: {
+            scale: 3, 
+            letterRendering: true,
+        },
+        jsPDF: {
+            unit: "in",
+            format: "a2",
+            orientation: 'portrait' 
+        }
+    })
+    .from(table)
+    .save()
+    .catch(err => console.log(err));
+   }
 });
