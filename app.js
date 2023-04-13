@@ -7,7 +7,6 @@ let $inputPrecio = document.getElementById("txtPrecio");
 let $inputTotal = document.getElementById("txtTotal");
 let $inputOrden = document.getElementById("orden");
 let btnEnviar = document.querySelector(".btnEnviar");
-let btnFactura = document.querySelector(".btnFactura");
 let btnAdd = document.querySelector(".buttonAdd");
 let table = document.querySelector(".table");
 const AllProducts = {
@@ -33,7 +32,6 @@ function desabilitar() {
   $inputCantidad.disabled = true;
   $optionsProduct.disabled = true;
   btnEnviar.disabled = true;
-  btnFactura.disabled = true;
   btnAdd.disabled = true;
   $inputCantidad.value = "";
   $inputTotal.value = "";
@@ -44,7 +42,6 @@ function habilitar() {
   $inputCantidad.disabled = false;
   $optionsProduct.disabled = false;
   btnEnviar.disabled = false;
-  btnFactura.disabled = false;
   btnAdd.disabled = false;
 }
 
