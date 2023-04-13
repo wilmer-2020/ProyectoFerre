@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <h1>PLATAFORMA DE PRUEBA</h1>
+        <button id="btnMenu">mne</button>
+        <ul class="menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="">Acerca de Nosotros</a></li>
+            <li><a href="">Comentaios</a></li>
+        </ul>
+    </nav>
+</header>
+    <form action="" id="form">
+        <div class="datacontainer">
+            <label for="">Nombre</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+            <label for="">Numero de ID</label>
+            <input type="text" name="numID" id="numID" placeholder="ID">
+            <label for="">Telefono</label>
+            <input type="text" name="telefono" id="telefono" placeholder="Telefono">
+            <label for="">Direccion</label>
+            <input type="text" name="direccion" id="direccion" placeholder="Direccion">
+            <input type="text" hidden name = "orden" id="orden">
+        </div>
+        
+        <input type="button" value="añadir" class="buttonAdd">
+        <input type="button" value="Crear" class="buttonCreate">
+        <input type="button" value="Crear Factura" class="btnFactura">
+        <input type="submit" value="Enviar Orden" class="btnEnviar">
+    </form>
+    <div class="containerItems">
+        <label for="">Material</label>
+        <select name="" id="material"></select>
+        <label for="">Cantidad</label>
+        <input type="text" name="txtCantidad" id="txtCantidad">
+        <label for="">Precio Unitario</label>
+        <input type="text" name="txtPrecioUnitario" id="txtPrecio" disabled>
+        <label for="">Total</label>
+        <input type="text" name="txtTotal" id="txtTotal" disabled>
+</div>
+</div>
+<table class="table">
+    <tr> 
+        <th>MATERIAL</th>
+        <th>CANTIDAD</th>
+        <th>PRECIO U</th>
+        <th>TOTAL</th>
+    </tr>
+    <template class="template">
+      <tr>
+        <td class="tdMaterial"></td>
+        <td class="tdCantidad"></td>
+        <td class="tdPreU"></td>
+        <td class="tdTotal"></td>
+      </tr>
+    </template>
+</table>
+<script src="backConfig.js" type="module"></script>
+<script src="app.js" type="module"></script>
+</body>
+</html>

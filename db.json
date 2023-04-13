@@ -1,0 +1,40 @@
+{
+  "Construccion": [
+    {
+      "id": 1,
+      "name": "cemento",
+      "precioUnitario": 120
+    },
+    {
+      "id": 2,
+      "name": "varilla",
+      "precioUnitario": 150
+    },
+    {
+      "id": 2,
+      "name": "bloque",
+      "precioUnitario": 200
+    }
+  ],
+  "Casa":[
+    {
+      "id":1,
+      "name":"Sanitario",
+      "precioUnitario":5000
+    }
+  
+  ],
+  "Fontaneria":[
+    {
+      "id":1,
+      "name":"pegamento PVC",
+      "precioUnitario":80
+    },
+    {
+      "id":2,
+      "name":"tubo",
+      "precioUnitario":120
+    }
+  
+  ]
+}
