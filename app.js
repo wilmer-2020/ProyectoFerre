@@ -1,4 +1,4 @@
-import { getProduct, get } from "./backConfig.js";
+import { getProduct, get,documentos} from "./backConfig.js";
 let $template = document.querySelector(".template").content;
 let $fragment = document.createDocumentFragment();
 let $optionsProduct = document.getElementById("material");
@@ -9,25 +9,14 @@ let $inputOrden = document.getElementById("orden");
 let btnEnviar = document.querySelector(".btnEnviar");
 let btnAdd = document.querySelector(".buttonAdd");
 let table = document.querySelector(".table");
-const AllProducts = {
-  cemento: "cemento",
-  "tubo 3pulg": "tubo 3pulg",
-};
-document.addEventListener("DOMContentLoaded", async (e) => {
-  getAll();
-  desabilitar();
-});
-
-async function getAll() {
-  for (const key in AllProducts) {
-    let $option = document.createElement("option");
-    $option.setAttribute("value", key);
-    $option.setAttribute("label", key);
-    let clone = document.importNode($option, true);
-    $fragment.appendChild(clone);
-  }
-  $optionsProduct.appendChild($fragment);
+const AllInput = document.querySelectorAll("#form input");
+const RegExp = {
+  nombre: /^[a-zA-Z\s]+$/,
+  Id:/^[0-9\-]+$/,
 }
+desabilitar();
+getAll();
+
 function desabilitar() {
   $inputCantidad.disabled = true;
   $optionsProduct.disabled = true;
@@ -38,27 +27,24 @@ function desabilitar() {
   $inputPrecio.value = "";
   $optionsProduct.value = "";
 }
-function habilitar() {
-  $inputCantidad.disabled = false;
-  $optionsProduct.disabled = false;
-  btnEnviar.disabled = false;
-  btnAdd.disabled = false;
+function getAll() {
+  documentos.forEach(doc => {
+    let option = document.createElement("option");
+    option.setAttribute("value", doc.id);
+    option.setAttribute("label", doc.id);
+    let clone = document.importNode(option,true);
+    $fragment.appendChild(clone);
+  });
+  $optionsProduct.appendChild($fragment);
+  $optionsProduct.value =""
 }
-
-document.addEventListener("change", async (e) => {
-  if (e.target === $optionsProduct) {
+$optionsProduct.addEventListener("change", async (e) => {
     let select = $optionsProduct.value.toLowerCase();
-    const querySnapshot = await get(getProduct(AllProducts[select]));
+    const querySnapshot = await get(getProduct(select));
     console.log(querySnapshot.data().precio);
     $inputPrecio.value = querySnapshot.data().precio;
-  }
 });
 
-$inputCantidad.addEventListener("keypress", async (e) => {
-  let select = $optionsProduct.value.toLowerCase();
-  const querySnapshot = await get(getProduct(AllProducts[select]));
-  $inputTotal.value = $inputCantidad.value * querySnapshot.data().precio;
-});
 
 const createOrden = (data) => {
   orden.push(data);
@@ -75,7 +61,12 @@ const createOrden = (data) => {
 let orden = [];
 const dataSend = [];
 document.addEventListener("click", (e) => {
-  if (e.target.matches(".buttonCreate")) habilitar();
+  if (e.target.matches(".buttonCreate")) {
+    btnEnviar.disabled = true;  
+    btnAdd.disabled = false;
+    $inputCantidad.disabled = false;
+    $optionsProduct.disabled = false;
+  };
   if (e.target.matches(".buttonAdd")) {
     $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
     $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
@@ -90,12 +81,15 @@ document.addEventListener("click", (e) => {
       cantidad: $inputCantidad.value,
     };
     createOrden(OrdenData);
-    console.log(orden);
     desabilitar();
+  }
+  if(e.target.matches('#btnMenu')){
+    let menu = document.querySelector('.menu');
+    menu.classList.toggle('active')
   }
 });
 document.addEventListener("submit", (e) => {
-  e.preventDefault();
+  e.preventDefault()  ;
   if (e.target === document.querySelector("form")) {
     fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
       method: "POST",
@@ -111,3 +105,23 @@ document.addEventListener("submit", (e) => {
       });
   }
 });
+const validateForm = (regEpx,input,campo) => {
+  if(regEpx.test(input)){
+    document.getElementById(`${campo}`).classList.remove('validate');
+  }else{
+    btnAdd.disabled = true;
+    btnEnviar.disabled= true;
+    document.getElementById(`${campo}`).classList.add('validate');
+  }
+}
+document.addEventListener('keyup', async (e) => {
+  if(e.target.matches("#nombre"))validateForm(RegExp.nombre,e.target.value,"nombre");
+  if(e.target.matches("#numID"))validateForm(RegExp.Id,e.target.value,"numID");
+  if(e.target.matches("#telefono"))validateForm(RegExp.Id,e.target.value,"telefono");
+  if(e.target === $inputCantidad){
+    let select = $optionsProduct.value.toLowerCase();
+    const querySnapshot = await get(getProduct(select));
+    $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
+  }
+});
+

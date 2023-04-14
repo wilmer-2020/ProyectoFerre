@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import { getFirestore,collection,getDoc,doc } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"
+import { getFirestore,collection,getDoc,doc,getDocs } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"
 let $optionsProduct = document.getElementById('material');
 const firebaseConfig = {
   apiKey: "AIzaSyDynbKZvRnj8d0XwfmUcyQ4d9UOPrnAvA0",
@@ -13,4 +13,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore()
 export let get = getDoc
-export const getProduct = (data) => doc(db,'productos',data)
+export const documentos =  await getDocs(collection(db, "productos"));
+export const getProduct = (data) => doc(db,'productos',data);
