@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
 import { getFirestore,collection,getDoc,doc,getDocs } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-firestore.js"
-let $optionsProduct = document.getElementById('material');
 const firebaseConfig = {
   apiKey: "AIzaSyDynbKZvRnj8d0XwfmUcyQ4d9UOPrnAvA0",
   authDomain: "dbferre-45a40.firebaseapp.com",

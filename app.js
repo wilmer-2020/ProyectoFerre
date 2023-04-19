@@ -10,23 +10,13 @@ let btnEnviar = document.querySelector(".btnEnviar");
 let btnAdd = document.querySelector(".buttonAdd");
 let table = document.querySelector(".table");
 const AllInput = document.querySelectorAll("#form input");
+let orden = [];
+const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
 }
-desabilitar();
 getAll();
-
-function desabilitar() {
-  $inputCantidad.disabled = true;
-  $optionsProduct.disabled = true;
-  btnEnviar.disabled = true;
-  btnAdd.disabled = true;
-  $inputCantidad.value = "";
-  $inputTotal.value = "";
-  $inputPrecio.value = "";
-  $optionsProduct.value = "";
-}
 function getAll() {
   documentos.forEach(doc => {
     let option = document.createElement("option");
@@ -38,12 +28,7 @@ function getAll() {
   $optionsProduct.appendChild($fragment);
   $optionsProduct.value =""
 }
-$optionsProduct.addEventListener("change", async (e) => {
-    let select = $optionsProduct.value.toLowerCase();
-    const querySnapshot = await get(getProduct(select));
-    console.log(querySnapshot.data().precio);
-    $inputPrecio.value = querySnapshot.data().precio;
-});
+
 
 
 const createOrden = (data) => {
@@ -58,53 +43,7 @@ const createOrden = (data) => {
   $inputOrden.value = [...new Set(dataSend)];
   console.log(dataSend);
 };
-let orden = [];
-const dataSend = [];
-document.addEventListener("click", (e) => {
-  if (e.target.matches(".buttonCreate")) {
-    btnEnviar.disabled = true;  
-    btnAdd.disabled = false;
-    $inputCantidad.disabled = false;
-    $optionsProduct.disabled = false;
-  };
-  if (e.target.matches(".buttonAdd")) {
-    $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
-    $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
-    $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
-    $template.querySelector(".tdTotal").innerHTML = $inputTotal.value;
-    let clone = document.importNode($template, true);
-    $fragment.appendChild(clone);
-    table.appendChild($fragment);
-    const OrdenData = {
-      product: $optionsProduct.value,
-      precio: $inputPrecio.value,
-      cantidad: $inputCantidad.value,
-    };
-    createOrden(OrdenData);
-    desabilitar();
-  }
-  if(e.target.matches('#btnMenu')){
-    let menu = document.querySelector('.menu');
-    menu.classList.toggle('active')
-  }
-});
-document.addEventListener("submit", (e) => {
-  e.preventDefault()  ;
-  if (e.target === document.querySelector("form")) {
-    fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
-      method: "POST",
-      body: new FormData(e.target),
-    })
-      .then((res) => (res.ok ? res.json : Promise.reject(res)))
-      .then((json) => {
-        console.log(json);
-        alert("success");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-});
+
 const validateForm = (regEpx,input,campo) => {
   if(regEpx.test(input)){
     document.getElementById(`${campo}`).classList.remove('validate');
@@ -114,14 +53,85 @@ const validateForm = (regEpx,input,campo) => {
     document.getElementById(`${campo}`).classList.add('validate');
   }
 }
+
+$optionsProduct.addEventListener("change", async (e) => {
+  let select = $optionsProduct.value.toLowerCase();
+  const querySnapshot = await get(getProduct(select));
+  console.log(querySnapshot.data().precio);
+  $inputPrecio.value = querySnapshot.data().precio;
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".buttonCreate")) {
+    $inputCantidad.disabled = false;
+    $optionsProduct.disabled = false;
+    btnAdd.disabled = false;
+  };
+  if (e.target.matches(".buttonAdd")) {
+    if($inputCantidad.value === "") {
+      btnEnviar.disabled = true;
+      return alert("Seleccione su producto e ingrese la cantidad")
+    }else{ 
+      if(AllInput.length === 0)console.log("Please select")
+      $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
+      $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
+      $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
+      $template.querySelector(".tdTotal").innerHTML = $inputTotal.value;
+      let clone = document.importNode($template, true);
+      $fragment.appendChild(clone);
+      table.appendChild($fragment);
+      const OrdenData = {
+        product: $optionsProduct.value,
+        precio: $inputPrecio.value,
+        cantidad: $inputCantidad.value,
+      };
+      createOrden(OrdenData);
+      $inputCantidad.value = "";
+      $inputTotal.value = "";
+      $inputPrecio.value = "";
+      $optionsProduct.value = "";
+      btnAdd.disabled = false;
+      btnEnviar.disabled = false  ;
+    }
+  }
+  if(e.target.matches('#btnMenu')){
+    let menu = document.querySelector('.menu');
+    menu.classList.toggle('active')
+  }
+});
+
+document.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if($inputCantidad.value === ""){
+    return alert("Seleccione su producto e ingrese la cantidad")
+  }else{
+    if (e.target === document.querySelector("form")) {
+      fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
+      method: "POST",
+      body: new FormData(e.target),
+    })
+    .then((res) => (res.ok ? res.json : Promise.reject(res)))
+    .then((json) => {
+      console.log(json);
+      alert("success");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+}  
+});
+
 document.addEventListener('keyup', async (e) => {
-  if(e.target.matches("#nombre"))validateForm(RegExp.nombre,e.target.value,"nombre");
-  if(e.target.matches("#numID"))validateForm(RegExp.Id,e.target.value,"numID");
-  if(e.target.matches("#telefono"))validateForm(RegExp.Id,e.target.value,"telefono");
+  let target = e.target.value;
+  if(e.target.matches("#nombre"))validateForm(RegExp.nombre,target,"nombre");
+  if(e.target.matches("#numID"))validateForm(RegExp.Id,target,"numID");
+  if(e.target.matches("#telefono"))validateForm(RegExp.Id,target,"telefono");
   if(e.target === $inputCantidad){
     let select = $optionsProduct.value.toLowerCase();
     const querySnapshot = await get(getProduct(select));
     $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
   }
 });
+
 
