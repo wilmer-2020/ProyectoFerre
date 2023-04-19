@@ -102,9 +102,6 @@ document.addEventListener("click", (e) => {
 
 document.addEventListener("submit", (e) => {
   e.preventDefault();
-  if($inputCantidad.value === ""){
-    return alert("Seleccione su producto e ingrese la cantidad")
-  }else{
     if (e.target === document.querySelector("form")) {
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
       method: "POST",
@@ -119,7 +116,7 @@ document.addEventListener("submit", (e) => {
       console.log(err);
     });
   }
-}  
+
 });
 
 document.addEventListener('keyup', async (e) => {
