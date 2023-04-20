@@ -1,4 +1,6 @@
-import { getProduct, get,documentos} from "./backConfig.js";
+import { 
+  getProduct, get,documentos,desabilitar,habilitar
+} from "./backConfig.js";
 let $template = document.querySelector(".template").content;
 let $fragment = document.createDocumentFragment();
 let $optionsProduct = document.getElementById("material");
@@ -16,7 +18,9 @@ const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
 }
+desabilitar();
 getAll();
+
 function getAll() {
   documentos.forEach(doc => {
     let option = document.createElement("option");
@@ -28,8 +32,6 @@ function getAll() {
   $optionsProduct.appendChild($fragment);
   $optionsProduct.value =""
 }
-
-
 
 const createOrden = (data) => {
   orden.push(data);
@@ -53,26 +55,20 @@ const validateForm = (regEpx,input,campo) => {
     document.getElementById(`${campo}`).classList.add('validate');
   }
 }
-
 $optionsProduct.addEventListener("change", async (e) => {
-  let select = $optionsProduct.value.toLowerCase();
-  const querySnapshot = await get(getProduct(select));
-  console.log(querySnapshot.data().precio);
-  $inputPrecio.value = querySnapshot.data().precio;
+    let select = $optionsProduct.value.toLowerCase();
+    const querySnapshot = await get(getProduct(select));
+    console.log(querySnapshot.data().precio);
+    $inputPrecio.value = querySnapshot.data().precio;
 });
-
 document.addEventListener("click", (e) => {
   if (e.target.matches(".buttonCreate")) {
-    $inputCantidad.disabled = false;
-    $optionsProduct.disabled = false;
-    btnAdd.disabled = false;
+   habilitar()
   };
   if (e.target.matches(".buttonAdd")) {
-    if($inputCantidad.value === "") {
-      btnEnviar.disabled = true;
-      return alert("Seleccione su producto e ingrese la cantidad")
-    }else{ 
-      if(AllInput.length === 0)console.log("Please select")
+    if($inputCantidad.value === ""){
+      return alert("seleccione el producto e ingrese la cantidad")
+    }else{
       $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
       $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
       $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
@@ -86,12 +82,7 @@ document.addEventListener("click", (e) => {
         cantidad: $inputCantidad.value,
       };
       createOrden(OrdenData);
-      $inputCantidad.value = "";
-      $inputTotal.value = "";
-      $inputPrecio.value = "";
-      $optionsProduct.value = "";
-      btnAdd.disabled = false;
-      btnEnviar.disabled = false  ;
+      desabilitar()
     }
   }
   if(e.target.matches('#btnMenu')){
@@ -99,24 +90,26 @@ document.addEventListener("click", (e) => {
     menu.classList.toggle('active')
   }
 });
-
 document.addEventListener("submit", (e) => {
   e.preventDefault();
-    if (e.target === document.querySelector("form")) {
+  if(dataSend.length === 0){
+    return alert('Realize el pedido')
+  }else{
+    if (e.target === document.querySelector("form")){
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
-      method: "POST",
-      body: new FormData(e.target),
-    })
-    .then((res) => (res.ok ? res.json : Promise.reject(res)))
-    .then((json) => {
-      console.log(json);
-      alert("success");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+        method: "POST",
+        body: new FormData(e.target),
+      })
+        .then((res) => (res.ok ? res.json : Promise.reject(res)))
+        .then((json) => {
+          console.log(json);
+          alert("success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
-
 });
 
 document.addEventListener('keyup', async (e) => {
@@ -130,5 +123,4 @@ document.addEventListener('keyup', async (e) => {
     $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
   }
 });
-
 
