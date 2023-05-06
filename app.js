@@ -1,5 +1,5 @@
 import { 
-  getProduct, get,documentos,desabilitar,habilitar
+  getProduct, get,documentos
 } from "./backConfig.js";
 let $template = document.querySelector(".template").content;
 let $fragment = document.createDocumentFragment();
@@ -7,6 +7,7 @@ let $optionsProduct = document.getElementById("material");
 let $inputCantidad = document.getElementById("txtCantidad");
 let $inputPrecio = document.getElementById("txtPrecio");
 let $inputTotal = document.getElementById("txtTotal");
+let $inputTotalPagar = document.getElementById("txtPagar");
 let $inputOrden = document.getElementById("orden");
 let btnEnviar = document.querySelector(".btnEnviar");
 let btnAdd = document.querySelector(".buttonAdd");
@@ -17,6 +18,22 @@ const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
+}
+let total = 0;
+function desabilitar() {
+  $inputCantidad.disabled = true;
+  $optionsProduct.disabled = true;
+  btnAdd.disabled = true;
+  $inputCantidad.value = "";
+  $inputTotal.value = "";
+  $inputPrecio.value = "";
+  $optionsProduct.value = "";
+}
+function habilitar(){
+  $inputCantidad.disabled = false;
+  $optionsProduct.disabled = false;
+  btnEnviar.disabled = false;
+  btnAdd.disabled = false;
 }
 desabilitar();
 getAll();
@@ -55,6 +72,13 @@ const validateForm = (regEpx,input,campo) => {
     document.getElementById(`${campo}`).classList.add('validate');
   }
 }
+
+function sumar(input) {
+  total += parseInt(input);
+  $inputTotalPagar.value = total;
+  console.log(total);
+}
+
 $optionsProduct.addEventListener("change", async (e) => {
     let select = $optionsProduct.value.toLowerCase();
     const querySnapshot = await get(getProduct(select));
@@ -82,7 +106,8 @@ document.addEventListener("click", (e) => {
         cantidad: $inputCantidad.value,
       };
       createOrden(OrdenData);
-      desabilitar()
+      sumar($inputTotal.value);
+      desabilitar();
     }
   }
   if(e.target.matches('#btnMenu')){
@@ -123,4 +148,3 @@ document.addEventListener('keyup', async (e) => {
     $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
   }
 });
-
