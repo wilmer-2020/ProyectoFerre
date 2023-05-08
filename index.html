@@ -42,10 +42,12 @@
             <input type="text" name="txtPrecioUnitario" id="txtPrecio" disabled>
             <label for="">Total</label>
             <input type="text" name="txtTotal" id="txtTotal" disabled>
-    </div>
+            <label for="">Total a Pagar</label>
+            <input type="text" name="totalPagar" id="txtPagar" disabled>
+        </div>
         <div class="containerButtons">
             <input type="button" value="Crear" class="buttonCreate">
-        <input type="button" value="añadir" class="buttonAdd">
+            <input type="button" value="añadir" class="buttonAdd">
         <input type="submit" value="Enviar Orden" class="btnEnviar">
         </div>
     </form>
@@ -66,8 +68,7 @@
       </tr>
     </template>
 </table>
-<input type="text" name="totalPagar" id="txtPagar" disabled>
-<input type="button" name="btnEliminar" class="btnEliminar"  value="Eliminar Produto"></input>
+<input type="button" name="btnEliminar" class="btnEliminar" value="Eliminar Produto"></input>
 <script src="backConfig.js" type="module"></script>
 <script src="app.js" type="module"></script>
 </body>
