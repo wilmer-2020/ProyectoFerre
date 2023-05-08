@@ -11,17 +11,18 @@ let $inputTotalPagar = document.getElementById("txtPagar");
 let $inputOrden = document.getElementById("orden");
 let btnEnviar = document.querySelector(".btnEnviar");
 let btnAdd = document.querySelector(".buttonAdd");
+let btnEliminar = document.querySelector(".btnEliminar"); 
 let table = document.querySelector(".table");
-const AllInput = document.querySelectorAll("#form input");
+let total = 0;
 let orden = [];
 const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
 }
-let total = 0;
 function desabilitar() {
   $inputCantidad.disabled = true;
+  btnEliminar.disabled = true;
   $optionsProduct.disabled = true;
   btnAdd.disabled = true;
   $inputCantidad.value = "";
@@ -66,6 +67,7 @@ const createOrden = (data) => {
 const validateForm = (regEpx,input,campo) => {
   if(regEpx.test(input)){
     document.getElementById(`${campo}`).classList.remove('validate');
+    btnEnviar.disabled= false;
   }else{
     btnAdd.disabled = true;
     btnEnviar.disabled= true;
@@ -113,6 +115,9 @@ document.addEventListener("click", (e) => {
   if(e.target.matches('#btnMenu')){
     let menu = document.querySelector('.menu');
     menu.classList.toggle('active')
+  }
+  if(e.target.matches('.btnEliminar')){
+    alert("oha")
   }
 });
 document.addEventListener("submit", (e) => {
