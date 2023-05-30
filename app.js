@@ -1,6 +1,7 @@
 import { 
   getProduct, get,documentos
 } from "./backConfig.js";
+let form = document.querySelector('form');
 let $template = document.querySelector(".template").content;
 let $fragment = document.createDocumentFragment();
 let $optionsProduct = document.getElementById("material");
@@ -18,6 +19,7 @@ let bar2 = document.querySelector(".bar2");
 let bar3 = document.querySelector(".bar3");
 let table = document.querySelector(".table");
 let id = Date.now().toString()+Math.random().toString(30).substring(2);
+let select = $optionsProduct.value.toLowerCase();
 let total = 0;
 let orden = [];
 let OrdenData ; 
@@ -26,6 +28,8 @@ const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
 }
+btnEliminar.textContent = "Eliminar";
+btnEliminar.classList.add("btnEliminar")
 function desabilitar() {
   $inputCantidad.disabled = true;
   $optionsProduct.disabled = true;
@@ -43,8 +47,6 @@ function habilitar(){
 }
 desabilitar();
 getAll();
-btnEliminar.textContent = "Eliminar";
-btnEliminar.classList.add("btnEliminar")
 function getAll() {
   documentos.forEach(doc => {
     let option = document.createElement("option");
@@ -65,7 +67,6 @@ const createOrden = (data) => {
     );
   }
   $inputOrden.value = [...new Set(dataSend)];
-  console.log(dataSend);
 };
 
 const validateForm = (regEpx,input,campo) => {
@@ -79,8 +80,8 @@ const validateForm = (regEpx,input,campo) => {
   }
 }
 
-function sumar(input) {
-  total += parseInt(input);
+function sumar() {
+  total += parseInt($inputTotal.value);
   $inputTotalPagar.value = total;
 }
 
@@ -92,9 +93,7 @@ function bars() {
 
 
 $optionsProduct.addEventListener("change", async (e) => {
-    let select = $optionsProduct.value.toLowerCase();
     const querySnapshot = await get(getProduct(select));
-    console.log(querySnapshot.data().precio);
     $inputPrecio.value = querySnapshot.data().precio;
 });
 document.addEventListener("click", (e) => {
@@ -121,7 +120,7 @@ document.addEventListener("click", (e) => {
         cantidad: $inputCantidad.value,
       };
       createOrden(OrdenData);
-      sumar($inputTotal.value);
+      sumar();
       desabilitar();
     }
   }
@@ -148,7 +147,7 @@ document.addEventListener("submit", (e) => {
   if(dataSend.length === 0){
     return alert('Realize el pedido')
   }else{
-    if (e.target === document.querySelector("form")){
+    if (e.target === form){
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
         method: "POST",
         body: new FormData(e.target),
@@ -171,7 +170,6 @@ document.addEventListener('keyup', async (e) => {
   if(e.target.matches("#numID"))validateForm(RegExp.Id,target,"numID");
   if(e.target.matches("#telefono"))validateForm(RegExp.Id,target,"telefono");
   if(e.target === $inputCantidad){
-    let select = $optionsProduct.value.toLowerCase();
     const querySnapshot = await get(getProduct(select));
     $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
   }
