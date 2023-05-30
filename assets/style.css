@@ -303,12 +303,14 @@ form .containerButtons .btnEnviar:hover {
   right: 0;
   background-color: #111111bd;
   pointer-events: none;
-  display: none;
+  *display: none;
   -webkit-transition: .3s ease;
   transition: .3s ease;
 }
 
 .modal_container {
+  -webkit-transform: translateY(30%);
+          transform: translateY(30%);
   width: 90%;
   background-color: white;
   margin: auto;
@@ -319,6 +321,7 @@ form .containerButtons .btnEnviar:hover {
   display: -ms-grid;
   display: grid;
   place-items: center;
+  grid-auto-columns: 100%;
   gap: 10px;
 }
 

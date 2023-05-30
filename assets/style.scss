@@ -199,11 +199,12 @@ form{
     right: 0; 
     background-color: #111111bd;
     pointer-events: none;
-    display: none;
+    *display: none;
     transition:.3s ease;
 }
 
 .modal_container{
+    transform: translateY(30%);
     width: 90%;
     background-color: white;
     margin:auto;
@@ -213,6 +214,7 @@ form{
     padding: .5em 2.5em;
     display: grid;
     place-items: center;
+    grid-auto-columns: 100%;
     gap: 10px;
     img{
         width: 300px;
