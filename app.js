@@ -19,10 +19,10 @@ let bar2 = document.querySelector(".bar2");
 let bar3 = document.querySelector(".bar3");
 let table = document.querySelector(".table");
 let id = Date.now().toString()+Math.random().toString(30).substring(2);
-let select = $optionsProduct.value.toLowerCase();
 let total = 0;
 let orden = [];
 let OrdenData ; 
+const modalDelete = document.querySelector('.modal');
 const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
@@ -91,8 +91,15 @@ function bars() {
   bar3.classList.toggle("active");
 }
 
+function EliminarFila(button) {
+    modalDelete.classList.add('modal--show')
+    button.parentNode.parentNode.remove()
+    let indice = orden.findIndex(el => el.id === OrdenData.id)
+    if(indice !== -1)orden.splice(indice, 1);
+}
 
 $optionsProduct.addEventListener("change", async (e) => {
+    let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
     $inputPrecio.value = querySnapshot.data().precio;
 });
@@ -119,7 +126,9 @@ document.addEventListener("click", (e) => {
         precio: $inputPrecio.value,
         cantidad: $inputCantidad.value,
       };
+      console.log(OrdenData.id,btnEliminar.dataset.id);
       createOrden(OrdenData);
+      console.log(btnEliminar);
       sumar();
       desabilitar();
     }
@@ -129,18 +138,8 @@ document.addEventListener("click", (e) => {
     menu.classList.toggle('active');
     bars()
   }
-  if(e.target.matches('.btnEliminar')){
-    let message = confirm("Esta seguro que quiere eliminar esto");
-    if (message) {
-       if(OrdenData.id === btnEliminar.dataset.id){
-        e.target.parentNode.parentNode.remove();
-        let indice = orden.findIndex(el => el.id === OrdenData.id)
-        if(indice !== -1)orden.splice(indice, 1);
-        console.log(orden);
-      }else return
-    }
-  }
-  
+  if(e.target.matches('.btnEliminar'))EliminarFila(e.target);
+  if (e.target.matches('.btnCerrar')) modalDelete.classList.remove('modal--show');
 });
 document.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -170,6 +169,7 @@ document.addEventListener('keyup', async (e) => {
   if(e.target.matches("#numID"))validateForm(RegExp.Id,target,"numID");
   if(e.target.matches("#telefono"))validateForm(RegExp.Id,target,"telefono");
   if(e.target === $inputCantidad){
+    let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
     $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
   }

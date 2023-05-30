@@ -191,3 +191,58 @@ form{
 .bar3.active{
     transform: rotate(-50deg) translateX(10px);
 }
+
+.modal{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0; 
+    background-color: #111111bd;
+    pointer-events: none;
+    display: none;
+    transition:.3s ease;
+}
+
+.modal_container{
+    width: 90%;
+    background-color: white;
+    margin: 10%  auto;
+    max-width: 400px;
+    max-height:80%;
+    border-radius: 7px;
+    padding: .5em 2.5em;
+    display: grid;
+    place-items: center;
+    gap: 10px;
+    img{
+        width: 300px;
+        height: 400px
+    }
+    h3{
+        text-align: center;
+        font-size: 1.5em;
+        margin-top: -100px;
+    }
+}
+
+.container_buttons-modal{
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    width: 90%;
+    padding: 10px;
+    margin-top: 10px;
+
+    .btnCerrar{
+        padding:10px 20px;
+        background-color: red;
+        color: white;
+        border-radius:4px;
+        border: none;
+    }
+}
+.modal--show{
+    display: block;
+    pointer-events: initial;
+}

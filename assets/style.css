@@ -301,4 +301,69 @@ form .containerButtons .btnEnviar:hover {
   -webkit-transform: rotate(-50deg) translateX(10px);
           transform: rotate(-50deg) translateX(10px);
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #111111bd;
+  pointer-events: none;
+  display: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.modal_container {
+  width: 90%;
+  background-color: white;
+  margin: 10%  auto;
+  max-width: 400px;
+  max-height: 80%;
+  border-radius: 7px;
+  padding: .5em 2.5em;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  gap: 10px;
+}
+
+.modal_container img {
+  width: 300px;
+  height: 400px;
+}
+
+.modal_container h3 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: -100px;
+}
+
+.container_buttons-modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.container_buttons-modal .btnCerrar {
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border-radius: 4px;
+  border: none;
+}
+
+.modal--show {
+  display: block;
+  pointer-events: initial;
+}
 /*# sourceMappingURL=style.css.map */
