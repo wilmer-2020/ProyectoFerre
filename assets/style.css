@@ -303,7 +303,7 @@ form .containerButtons .btnEnviar:hover {
   right: 0;
   background-color: #111111bd;
   pointer-events: none;
-  *display: none;
+  display: none;
   -webkit-transition: .3s ease;
   transition: .3s ease;
 }
