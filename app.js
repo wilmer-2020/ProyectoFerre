@@ -28,6 +28,8 @@ const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
   Id:/^[0-9\-]+$/,
 }
+document.addEventListener('DOMContentLoaded', getAll);
+
 btnEliminar.textContent = "Eliminar";
 btnEliminar.classList.add("btnEliminar")
 function desabilitar() {
@@ -45,9 +47,10 @@ function habilitar(){
   btnEnviar.disabled = false;
   btnAdd.disabled = false;
 }
-desabilitar();
 getAll();
 function getAll() {
+  desabilitar();
+  $inputTotalPagar.value = ""
   documentos.forEach(doc => {
     let option = document.createElement("option");
     option.setAttribute("value", doc.id);
@@ -96,6 +99,7 @@ function EliminarFila(button) {
     button.parentNode.parentNode.remove()
     let indice = orden.findIndex(el => el.id === OrdenData.id)
     if(indice !== -1)orden.splice(indice, 1);
+    
 }
 
 $optionsProduct.addEventListener("change", async (e) => {
