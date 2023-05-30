@@ -12,24 +12,28 @@
 <body>
 <header>
     <nav>
-        <h1>PLATAFORMA DE PRUEBA</h1>
-        <button id="btnMenu">mne</button>
+        <h1 class="tittle">FECA</h1>
+        <div class="btnMenu">
+            <span class="bar1"></span>
+            <span class="bar2"></span>
+            <span class="bar3"></span>
+        </div>
         <ul class="menu">
             <li><a href="#">Inicio</a></li>
+            <li><a href="#">Comprar</a></li>
+            <li><a href="#">Galeria</a></li>
+            <li><a href="#">Contactanos</a></li>
             <li><a href="">Acerca de Nosotros</a></li>
             <li><a href="">Comentaios</a></li>
         </ul>
     </nav>
 </header>
     <form action="" id="form">
+        <h2 class="tittle-form">¡Haga su pedido aqui!</h2>
         <div class="datacontainer">
-            <label for="">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
-            <label for="">Numero de ID</label>
             <input type="text" name="numID" id="numID" placeholder="ID" required>
-            <label for="">Telefono</label>
             <input type="text" name="telefono" id="telefono" placeholder="Telefono" required>
-            <label for="">Direccion</label>
             <input type="text" name="direccion" id="direccion" placeholder="Direccion" required>
             <input type="text" hidden name = "orden" id="orden">
         </div>
@@ -58,6 +62,7 @@
         <th>CANTIDAD</th>
         <th>PRECIO</th>
         <th>TOTAL</th>
+        <th>ELIMINAR</th>
     </tr>
     <template class="template">
       <tr>
@@ -65,10 +70,10 @@
         <td class="tdCantidad"></td>
         <td class="tdPreU"></td>
         <td class="tdTotal"></td>
+        <td class="tdEliminar"></td>
       </tr>
     </template>
 </table>
-<input type="button" name="btnEliminar" class="btnEliminar" value="Eliminar Produto"></input>
 <script src="backConfig.js" type="module"></script>
 <script src="app.js" type="module"></script>
 </body>

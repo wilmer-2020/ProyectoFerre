@@ -24,11 +24,15 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  height: 280px;
+  background-image: url(./img/banner.jpeg);
+  background-size: cover;
+  background-position: center center;
 }
 
 header nav {
   width: 100%;
-  height: 40px;
+  height: 70px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -37,11 +41,17 @@ header nav {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: black;
-  color: white;
-  z-index: 300000;
-  position: fixed;
+  background-color: #FCFBFB;
+  z-index: 300;
   top: 0;
+  position: fixed;
+  -webkit-box-shadow: 1px 1px 1px 1px rgba(107, 106, 106, 0.418);
+          box-shadow: 1px 1px 1px 1px rgba(107, 106, 106, 0.418);
+}
+
+header nav .tittle {
+  z-index: -1;
+  color: #F8600B;
 }
 
 header nav .menu {
@@ -61,10 +71,11 @@ header nav .menu {
       -ms-flex-direction: column;
           flex-direction: column;
   position: fixed;
-  background-color: aqua;
-  -webkit-clip-path: circle(0% at 50% 90%);
-          clip-path: circle(0% at 50% 90%);
-  z-index: 100;
+  background-color: #f3f3f3;
+  -webkit-clip-path: circle(0% at 50% 50%);
+          clip-path: circle(0% at 50% 50%);
+  z-index: -1;
+  top: 0;
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
@@ -74,19 +85,45 @@ header nav .menu li {
 }
 
 header nav .menu li a {
+  display: block;
   text-decoration: none;
-  color: #fff;
+  color: #F8600B;
   font-family: sans-serif;
-  font-size: 40px;
+  font-size: 1.5rem;
+  padding: 10px;
 }
 
-header nav #btnmenu {
+header nav .btnMenu {
+  width: 40px;
+  height: 40px;
   z-index: 300;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-top: 5px;
+}
+
+header nav .btnMenu span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #F8600B;
+  margin-bottom: 5px;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
 }
 
 .menu.active {
-  -webkit-clip-path: circle(100% at 50% 90%);
-          clip-path: circle(100% at 50% 90%);
+  -webkit-clip-path: circle(100% at 50% 50%);
+          clip-path: circle(100% at 50% 50%);
 }
 
 form {
@@ -103,6 +140,10 @@ form {
   background-color: white;
   -webkit-box-shadow: 1px 1px 5px gray;
           box-shadow: 1px 1px 5px gray;
+}
+
+form .tittle-form {
+  margin: auto;
 }
 
 form input {
@@ -161,12 +202,60 @@ form .containerButtons {
   margin-top: 50px;
 }
 
+form .containerButtons .buttonAdd {
+  width: 200px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: rgba(1, 1, 114, 0.719);
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 2px 1px gray;
+          box-shadow: 1px 1px 2px 1px gray;
+}
+
+form .containerButtons .buttonAdd:hover {
+  background-color: red;
+}
+
+form .containerButtons .buttonCreate {
+  width: 200px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: #010172;
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 2px 1px gray;
+          box-shadow: 1px 1px 2px 1px gray;
+}
+
+form .containerButtons .buttonCreate:hover {
+  background-color: red;
+}
+
+form .containerButtons .btnEnviar {
+  width: 200px;
+  padding: 5px;
+  border-radius: 3px;
+  background-color: rgba(1, 150, 1, 0.671);
+  color: white;
+  border: none;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 2px 1px gray;
+          box-shadow: 1px 1px 2px 1px gray;
+}
+
+form .containerButtons .btnEnviar:hover {
+  background-color: red;
+}
+
 .table {
   width: 60%;
   height: auto;
   margin: 20px auto;
   border-collapse: collapse;
-  background-color: #020229;
+  border-collapse: collapse;
 }
 
 .table caption {
@@ -176,18 +265,40 @@ form .containerButtons {
 }
 
 .table th {
-  padding: 5px;
+  padding: 6px;
   text-align: left;
+  font-size: .8rem;
   border: 1px solid white;
   color: orangered;
+  background-color: #1e1e20;
+  border: 1px solid black;
 }
 
 .table td {
   padding: 5px;
-  color: white;
+  color: black;
+  border: 1px solid black;
+}
+
+.table tr:nth-of-type(odd) {
+  background-color: #e6e6e6e6;
 }
 
 .validate {
   background-color: red;
+}
+
+.bar1.active {
+  -webkit-transform: rotate(50deg) translateX(12px);
+          transform: rotate(50deg) translateX(12px);
+}
+
+.bar2.active {
+  opacity: 0;
+}
+
+.bar3.active {
+  -webkit-transform: rotate(-50deg) translateX(10px);
+          transform: rotate(-50deg) translateX(10px);
 }
 /*# sourceMappingURL=style.css.map */

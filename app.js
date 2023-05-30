@@ -11,10 +11,16 @@ let $inputTotalPagar = document.getElementById("txtPagar");
 let $inputOrden = document.getElementById("orden");
 let btnEnviar = document.querySelector(".btnEnviar");
 let btnAdd = document.querySelector(".buttonAdd");
-let btnEliminar = document.querySelector(".btnEliminar"); 
+let btnEliminar = document.createElement('button'); 
+let btnMenu = document.querySelector(".btnMenu");
+let bar1 = document.querySelector(".bar1");
+let bar2 = document.querySelector(".bar2");
+let bar3 = document.querySelector(".bar3");
 let table = document.querySelector(".table");
+let id = Date.now().toString()+Math.random().toString(30).substring(2);
 let total = 0;
 let orden = [];
+let OrdenData ; 
 const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
@@ -22,7 +28,6 @@ const RegExp = {
 }
 function desabilitar() {
   $inputCantidad.disabled = true;
-  btnEliminar.disabled = true;
   $optionsProduct.disabled = true;
   btnAdd.disabled = true;
   $inputCantidad.value = "";
@@ -38,7 +43,8 @@ function habilitar(){
 }
 desabilitar();
 getAll();
-
+btnEliminar.textContent = "Eliminar";
+btnEliminar.classList.add("btnEliminar")
 function getAll() {
   documentos.forEach(doc => {
     let option = document.createElement("option");
@@ -55,9 +61,7 @@ const createOrden = (data) => {
   orden.push(data);
   for (let i = 0; i < orden.length; i++) {
     dataSend.push(
-      `PRODUCTO: ${JSON.stringify(
-        orden[i].product
-      )} -- CANTIDAD: ${JSON.stringify(orden[i].cantidad)}`
+      `PRODUCTO: ${JSON.stringify(orden[i].product)} -- CANTIDAD: ${JSON.stringify(parseInt(orden[i].cantidad))}`
     );
   }
   $inputOrden.value = [...new Set(dataSend)];
@@ -78,8 +82,14 @@ const validateForm = (regEpx,input,campo) => {
 function sumar(input) {
   total += parseInt(input);
   $inputTotalPagar.value = total;
-  console.log(total);
 }
+
+function bars() {
+  bar1.classList.toggle("active");
+  bar2.classList.toggle("active");
+  bar3.classList.toggle("active");
+}
+
 
 $optionsProduct.addEventListener("change", async (e) => {
     let select = $optionsProduct.value.toLowerCase();
@@ -99,10 +109,13 @@ document.addEventListener("click", (e) => {
       $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
       $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
       $template.querySelector(".tdTotal").innerHTML = $inputTotal.value;
+      $template.querySelector(".tdEliminar").appendChild(btnEliminar)
       let clone = document.importNode($template, true);
       $fragment.appendChild(clone);
       table.appendChild($fragment);
-      const OrdenData = {
+      btnEliminar.setAttribute('data-id',id)
+      OrdenData = {
+        id,
         product: $optionsProduct.value,
         precio: $inputPrecio.value,
         cantidad: $inputCantidad.value,
@@ -112,13 +125,23 @@ document.addEventListener("click", (e) => {
       desabilitar();
     }
   }
-  if(e.target.matches('#btnMenu')){
+  if(e.target === btnMenu){
     let menu = document.querySelector('.menu');
-    menu.classList.toggle('active')
+    menu.classList.toggle('active');
+    bars()
   }
   if(e.target.matches('.btnEliminar')){
-    alert("oha")
+    let message = confirm("Esta seguro que quiere eliminar esto");
+    if (message) {
+       if(OrdenData.id === btnEliminar.dataset.id){
+        e.target.parentNode.parentNode.remove();
+        let indice = orden.findIndex(el => el.id === OrdenData.id)
+        if(indice !== -1)orden.splice(indice, 1);
+        console.log(orden);
+      }else return
+    }
   }
+  
 });
 document.addEventListener("submit", (e) => {
   e.preventDefault();
