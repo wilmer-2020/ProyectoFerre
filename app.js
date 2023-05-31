@@ -137,7 +137,7 @@ document.addEventListener("click", (e) => {
       table.appendChild($fragment);
       btnEliminar.setAttribute('data-total', parseInt($inputTotal.value));
       btnEliminar.setAttribute('data-producto',$optionsProduct.value);
-      btnEliminar.setAttribute('data-cantidad',parseInt$inputCantidad.value);
+      btnEliminar.setAttribute('data-cantidad',parseInt($inputCantidad.value));
       OrdenData = {
         product: $optionsProduct.value,
         precio: $inputPrecio.value,
