@@ -18,10 +18,10 @@ let bar1 = document.querySelector(".bar1");
 let bar2 = document.querySelector(".bar2");
 let bar3 = document.querySelector(".bar3");
 let table = document.querySelector(".table");
-let id = Date.now().toString()+Math.random().toString(30).substring(2);
+
 let total = 0;
 let orden = [];
-let OrdenData ; 
+let OrdenData; 
 const modalDelete = document.querySelector('.modal');
 const dataSend = [];
 const RegExp = {
@@ -62,14 +62,16 @@ function getAll() {
   $optionsProduct.value =""
 }
 
+function generarID() {
+  return Date.now().toString()+Math.random().toString(30).substring(2);
+}
+
 const createOrden = (data) => {
+  data["id"] = generarID();
+  btnEliminar.setAttribute('data-id',data.id)
   orden.push(data);
-  for (let i = 0; i < orden.length; i++) {
-    dataSend.push(
-      `PRODUCTO: ${JSON.stringify(orden[i].product)} -- CANTIDAD: ${JSON.stringify(parseInt(orden[i].cantidad))}`
-    );
-  }
-  $inputOrden.value = [...new Set(dataSend)];
+  console.log(btnEliminar);
+ 
 };
 
 const validateForm = (regEpx,input,campo) => {
@@ -95,15 +97,21 @@ function bars() {
   bar3.classList.toggle("active");
 }
 
+function EliminarObj(id) {
+  let indice = orden.findIndex((el) => {
+    return el.id === id;
+  })
+  orden.splice(indice, 1);
+  if(orden.length === 0)$inputTotalPagar.value = 0;
+  console.log(orden);
+  console.log(dataSend);
+}
 function EliminarFila(button) {
     modalDelete.classList.add('modal--show')
     button.parentNode.parentNode.remove()
-    let indice = orden.findIndex(el => el.id === OrdenData.id)
-    if(indice !== -1)orden.splice(indice, 1);
     let dataDate = parseInt(btnEliminar.getAttribute('data-total'), 10);
     let resta = total - dataDate;
     $inputTotalPagar.value = resta;
-    if(orden.length === 0)$inputTotalPagar.value = 0
 }
 
 $optionsProduct.addEventListener("change", async (e) => {
@@ -127,17 +135,25 @@ document.addEventListener("click", (e) => {
       let clone = document.importNode($template, true);
       $fragment.appendChild(clone);
       table.appendChild($fragment);
-      btnEliminar.setAttribute('data-id',id)
       btnEliminar.setAttribute('data-total', parseInt($inputTotal.value));
+      btnEliminar.setAttribute('data-producto',$optionsProduct.value);
+      btnEliminar.setAttribute('data-cantidad',parseInt$inputCantidad.value);
       OrdenData = {
-        id,
         product: $optionsProduct.value,
         precio: $inputPrecio.value,
-        cantidad: $inputCantidad.value,
-      };
+        cantidad: parseInt($inputCantidad.value),
+      }
+      $inputOrden.value = [...new Set(dataSend)];
       sumar();
       desabilitar();
-      createOrden(OrdenData)
+      createOrden(OrdenData);
+      for (let i = 0; i < orden.length; i++) {
+        dataSend.push(
+          `PRODUCTO: ${JSON.stringify(orden[i].product)} -- CANTIDAD: ${JSON.stringify(parseInt(orden[i].cantidad))}`
+        );
+      }
+      console.log(orden);
+      console.log(dataSend);
     }
   }
   if(e.target === btnMenu){
@@ -145,12 +161,15 @@ document.addEventListener("click", (e) => {
     menu.classList.toggle('active');
     bars()
   }
-  if(e.target.matches('.btnEliminar'))EliminarFila(e.target);
+  if(e.target.matches('.btnEliminar')){
+    EliminarFila(e.target);
+    EliminarObj(btnEliminar.getAttribute('data-id'));
+  }
   if (e.target.matches('.btnCerrar')) modalDelete.classList.remove('modal--show');
 });
 document.addEventListener("submit", (e) => {
   e.preventDefault();
-  if(dataSend.length === 0){
+  if(orden.length === 0){
     return alert('Realize el pedido')
   }else{
     if (e.target === form){
