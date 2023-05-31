@@ -85,7 +85,8 @@ const validateForm = (regEpx,input,campo) => {
 
 function sumar() {
   total += parseInt($inputTotal.value);
-  $inputTotalPagar.value = total;
+  $inputTotalPagar.value = parseInt(total);
+  console.log(total);
 }
 
 function bars() {
@@ -99,7 +100,10 @@ function EliminarFila(button) {
     button.parentNode.parentNode.remove()
     let indice = orden.findIndex(el => el.id === OrdenData.id)
     if(indice !== -1)orden.splice(indice, 1);
-    
+    let dataDate = parseInt(btnEliminar.getAttribute('data-total'), 10);
+    let resta = total - dataDate;
+    $inputTotalPagar.value = resta;
+    if(orden.length === 0)$inputTotalPagar.value = 0
 }
 
 $optionsProduct.addEventListener("change", async (e) => {
@@ -118,23 +122,22 @@ document.addEventListener("click", (e) => {
       $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
       $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
       $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
-      $template.querySelector(".tdTotal").innerHTML = $inputTotal.value;
+      $template.querySelector(".tdTotal").innerHTML = $inputTotal.value
       $template.querySelector(".tdEliminar").appendChild(btnEliminar)
       let clone = document.importNode($template, true);
       $fragment.appendChild(clone);
       table.appendChild($fragment);
       btnEliminar.setAttribute('data-id',id)
+      btnEliminar.setAttribute('data-total', parseInt($inputTotal.value));
       OrdenData = {
         id,
         product: $optionsProduct.value,
         precio: $inputPrecio.value,
         cantidad: $inputCantidad.value,
       };
-      console.log(OrdenData.id,btnEliminar.dataset.id);
-      createOrden(OrdenData);
-      console.log(btnEliminar);
       sumar();
       desabilitar();
+      createOrden(OrdenData)
     }
   }
   if(e.target === btnMenu){
@@ -175,6 +178,6 @@ document.addEventListener('keyup', async (e) => {
   if(e.target === $inputCantidad){
     let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
-    $inputTotal.value = querySnapshot.data().precio * $inputCantidad.value
+    $inputTotal.value = parseInt(querySnapshot.data().precio * $inputCantidad.value)
   }
 });
