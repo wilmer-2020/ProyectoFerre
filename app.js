@@ -23,6 +23,7 @@ let total = 0;
 let orden = [];
 let OrdenData; 
 const modalDelete = document.querySelector('.modal');
+const modalVacio = document.querySelector('.modal_vacio');
 const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
@@ -164,12 +165,15 @@ document.addEventListener("click", (e) => {
     EliminarFila(e.target);
     EliminarObj(btnEliminar.getAttribute('data-id'));
   }
-  if (e.target.matches('.btnCerrar')) modalDelete.classList.remove('modal--show');
+  if (e.target.matches('.btnCerrar')){
+    modalDelete.classList.remove('modal--show');
+    modalVacio.classList.remove('modal--show');
+  }
 });
 document.addEventListener("submit", (e) => {
   e.preventDefault();
   if(orden.length === 0){
-    return alert('Realize el pedido')
+    modalVacio.classList.toggle('modal--show')
   }else{
     if (e.target === form){
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
