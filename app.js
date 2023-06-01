@@ -70,8 +70,6 @@ const createOrden = (data) => {
   data["id"] = generarID();
   btnEliminar.setAttribute('data-id',data.id)
   orden.push(data);
-  console.log(btnEliminar);
- 
 };
 
 const validateForm = (regEpx,input,campo) => {
@@ -88,7 +86,6 @@ const validateForm = (regEpx,input,campo) => {
 function sumar() {
   total += parseInt($inputTotal.value);
   $inputTotalPagar.value = parseInt(total);
-  console.log(total);
 }
 
 function bars() {
@@ -111,8 +108,6 @@ function EliminarObj(id) {
   })
   dataSend.splice(indice, 1);
   }
-  console.log(orden);
-  console.log(dataSend);
 }
 function EliminarFila(button) {
     modalDelete.classList.add('modal--show')
@@ -159,8 +154,6 @@ document.addEventListener("click", (e) => {
         dataSend.push(`PRODUCTO: ${el.product} CANTIDAD: ${el.cantidad}`)
       })
     }
-      console.log(orden);
-      console.log(dataSend);
 }
   if(e.target === btnMenu){
     let menu = document.querySelector('.menu');
