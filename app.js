@@ -103,6 +103,14 @@ function EliminarObj(id) {
   })
   orden.splice(indice, 1);
   if(orden.length === 0)$inputTotalPagar.value = 0;
+  let nombreProducto = btnEliminar.dataset.producto;
+  let cantidadProducto = btnEliminar.dataset.cantidad;
+  if(dataSend.includes(`PRODUCTO: ${nombreProducto} CANTIDAD: ${cantidadProducto}`)){
+  let indice  = dataSend.findIndex(el => {
+    return el.nombreProducto === nombreProducto;
+  })
+  dataSend.splice(indice, 1);
+  }
   console.log(orden);
   console.log(dataSend);
 }
@@ -117,7 +125,7 @@ function EliminarFila(button) {
 $optionsProduct.addEventListener("change", async (e) => {
     let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
-    $inputPrecio.value = querySnapshot.data().precio;
+    $inputPrecio.value = parseInt(querySnapshot.data().precio)
 });
 document.addEventListener("click", (e) => {
   if (e.target.matches(".buttonCreate")) {
@@ -128,9 +136,9 @@ document.addEventListener("click", (e) => {
       return alert("seleccione el producto e ingrese la cantidad")
     }else{
       $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
-      $template.querySelector(".tdCantidad").innerHTML = $inputCantidad.value;
-      $template.querySelector(".tdPreU").innerHTML = $inputPrecio.value;
-      $template.querySelector(".tdTotal").innerHTML = $inputTotal.value
+      $template.querySelector(".tdCantidad").innerHTML = parseInt($inputCantidad.value)
+      $template.querySelector(".tdPreU").innerHTML = parseInt($inputPrecio.value);
+      $template.querySelector(".tdTotal").innerHTML = parseInt( $inputTotal.value)
       $template.querySelector(".tdEliminar").appendChild(btnEliminar)
       let clone = document.importNode($template, true);
       $fragment.appendChild(clone);
@@ -140,22 +148,20 @@ document.addEventListener("click", (e) => {
       btnEliminar.setAttribute('data-cantidad',parseInt($inputCantidad.value));
       OrdenData = {
         product: $optionsProduct.value,
-        precio: $inputPrecio.value,
+        precio: parseInt($inputPrecio.value),
         cantidad: parseInt($inputCantidad.value),
       }
       $inputOrden.value = [...new Set(dataSend)];
       sumar();
       desabilitar();
       createOrden(OrdenData);
-      for (let i = 0; i < orden.length; i++) {
-        dataSend.push(
-          `PRODUCTO: ${JSON.stringify(orden[i].product)} -- CANTIDAD: ${JSON.stringify(parseInt(orden[i].cantidad))}`
-        );
-      }
+      orden.forEach(el => {
+        dataSend.push(`PRODUCTO: ${el.product} CANTIDAD: ${el.cantidad}`)
+      })
+    }
       console.log(orden);
       console.log(dataSend);
-    }
-  }
+}
   if(e.target === btnMenu){
     let menu = document.querySelector('.menu');
     menu.classList.toggle('active');
