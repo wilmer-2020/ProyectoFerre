@@ -321,6 +321,19 @@ form .containerButtons .btnEnviar:hover {
   transition: .3s ease;
 }
 
+.modal_enviado {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #111111bd;
+  pointer-events: none;
+  display: none;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
 .modal_container {
   -webkit-transform: translateY(30%);
           transform: translateY(30%);

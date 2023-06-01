@@ -24,6 +24,7 @@ let orden = [];
 let OrdenData; 
 const modalDelete = document.querySelector('.modal');
 const modalVacio = document.querySelector('.modal_vacio');
+const modalEnviado = document.querySelector('.modal_enviado');
 const dataSend = [];
 const RegExp = {
   nombre: /^[a-zA-Z\s]+$/,
@@ -145,13 +146,13 @@ document.addEventListener("click", (e) => {
         cantidad: parseInt($inputCantidad.value),
         total:parseInt($inputTotal.value)
       }
-      $inputOrden.value = [...new Set(dataSend)];
+      $inputOrden.value = [...dataSend]
       sumar();
       desabilitar();
       createOrden(OrdenData);
-      orden.forEach(el => {
-        dataSend.push(`PRODUCTO:${el.product} CANTIDAD:${el.cantidad}`)
-      })
+      dataSend.push(`PRODUCTO:${OrdenData.product} CANTIDAD:${OrdenData.cantidad}`);
+      console.log(orden);
+      console.log(dataSend);
     }
 }
   if(e.target === btnMenu){
@@ -166,6 +167,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches('.btnCerrar')){
     modalDelete.classList.remove('modal--show');
     modalVacio.classList.remove('modal--show');
+    modalEnviado.classList.remove('modal--show');
   }
 });
 document.addEventListener("submit", (e) => {
@@ -181,7 +183,7 @@ document.addEventListener("submit", (e) => {
         .then((res) => (res.ok ? res.json : Promise.reject(res)))
         .then((json) => {
           console.log(json);
-          alert("success");
+        modalEnviado.classList.add('modal--show')
         })
         .catch((err) => {
           console.log(err);
