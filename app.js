@@ -19,7 +19,7 @@ let bar2 = document.querySelector(".bar2");
 let bar3 = document.querySelector(".bar3");
 let table = document.querySelector(".table");
 
-let total = 0;
+let totalPagar = 0;
 let orden = [];
 let OrdenData; 
 const modalDelete = document.querySelector('.modal');
@@ -85,8 +85,8 @@ const validateForm = (regEpx,input,campo) => {
 }
 
 function sumar() {
-  total += parseInt($inputTotal.value);
-  $inputTotalPagar.value = parseInt(total);
+  totalPagar += OrdenData.total;
+  $inputTotalPagar.value = totalPagar;
 }
 
 function bars() {
@@ -100,7 +100,7 @@ function EliminarObj(id) {
     return el.id === id;
   })
   orden.splice(indice, 1);
-  if(orden.length === 0)$inputTotalPagar.value = 0;
+  if(orden.length === 0)$inputTotalPagar.value = 0
   let nombreProducto = btnEliminar.dataset.producto;
   let cantidadProducto = btnEliminar.dataset.cantidad;
   if(dataSend.includes(`PRODUCTO: ${nombreProducto} CANTIDAD: ${cantidadProducto}`)){
@@ -112,10 +112,9 @@ function EliminarObj(id) {
 }
 function EliminarFila(button) {
     modalDelete.classList.add('modal--show')
-    button.parentNode.parentNode.remove()
-    let dataDate = parseInt(btnEliminar.getAttribute('data-total'), 10);
-    let resta = total - dataDate;
-    $inputTotalPagar.value = resta;
+    button.parentNode.parentNode.remove();
+    totalPagar -= button.dataset.total;
+    $inputTotalPagar.value = totalPagar;
 }
 
 $optionsProduct.addEventListener("change", async (e) => {
@@ -134,18 +133,17 @@ document.addEventListener("click", (e) => {
       $template.querySelector(".tdMaterial").innerHTML = $optionsProduct.value;
       $template.querySelector(".tdCantidad").innerHTML = parseInt($inputCantidad.value)
       $template.querySelector(".tdPreU").innerHTML = parseInt($inputPrecio.value);
-      $template.querySelector(".tdTotal").innerHTML = parseInt( $inputTotal.value)
-      $template.querySelector(".tdEliminar").appendChild(btnEliminar)
+      $template.querySelector(".tdTotal").innerHTML = parseInt( $inputTotal.value);
+      $template.querySelector(".tdEliminar").appendChild(btnEliminar);
+      $template.querySelector(".btnEliminar").setAttribute('data-total', parseInt( $inputTotal.value))
       let clone = document.importNode($template, true);
       $fragment.appendChild(clone);
       table.appendChild($fragment);
-      btnEliminar.setAttribute('data-total', parseInt($inputTotal.value));
-      btnEliminar.setAttribute('data-producto',$optionsProduct.value);
-      btnEliminar.setAttribute('data-cantidad',parseInt($inputCantidad.value));
       OrdenData = {
         product: $optionsProduct.value,
         precio: parseInt($inputPrecio.value),
         cantidad: parseInt($inputCantidad.value),
+        total:parseInt($inputTotal.value)
       }
       $inputOrden.value = [...new Set(dataSend)];
       sumar();
