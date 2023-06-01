@@ -150,7 +150,7 @@ document.addEventListener("click", (e) => {
       desabilitar();
       createOrden(OrdenData);
       orden.forEach(el => {
-        dataSend.push(`-PRODUCTO:${el.product} CANTIDAD:${el.cantidad}-`)
+        dataSend.push(`PRODUCTO:${el.product} CANTIDAD:${el.cantidad}`)
       })
     }
 }
