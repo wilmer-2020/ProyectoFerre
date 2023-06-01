@@ -146,13 +146,13 @@ document.addEventListener("click", (e) => {
         cantidad: parseInt($inputCantidad.value),
         total:parseInt($inputTotal.value)
       }
-      $inputOrden.value = [...dataSend]
       sumar();
       desabilitar();
       createOrden(OrdenData);
-      dataSend.push(`PRODUCTO:${OrdenData.product} CANTIDAD:${OrdenData.cantidad}`);
-      console.log(orden);
-      console.log(dataSend);
+      orden.forEach(el =>{
+        dataSend.push(`PRODUCTO:${el.product} CANTIDAD:${el.cantidad}`)
+      })
+      $inputOrden.value = [...new Set(dataSend)];
     }
 }
   if(e.target === btnMenu){
@@ -173,7 +173,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("submit", (e) => {
   e.preventDefault();
   if(orden.length === 0){
-    modalVacio.classList.toggle('modal--show')
+    modalVacio.classList.toggle('modal--show');
   }else{
     if (e.target === form){
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
@@ -182,8 +182,13 @@ document.addEventListener("submit", (e) => {
       })
         .then((res) => (res.ok ? res.json : Promise.reject(res)))
         .then((json) => {
-          console.log(json);
-        modalEnviado.classList.add('modal--show')
+        console.log(json);
+        modalEnviado.classList.add('modal--show');
+        form.reset();
+        let filas = table.getElementsByTagName('tr');
+        for (var i = filas.length - 1; i > 0; i--) {
+      table.removeChild(filas[i]);
+    }
         })
         .catch((err) => {
           console.log(err);
