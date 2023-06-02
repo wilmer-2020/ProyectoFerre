@@ -169,6 +169,7 @@ form .datacontainer .form-group .form-input {
 }
 
 form .datacontainer .form-group .form-label {
+  color: #888888;
   cursor: pointer;
   position: absolute;
   top: 0;
@@ -183,7 +184,7 @@ form .form-input:not(:placeholder-shown) + .form-label {
           transform: scale(0.7) translateY(-12px);
   -webkit-transform-origin: left top;
           transform-origin: left top;
-  color: red;
+  color: #f8600b;
 }
 
 form .containerItems {
