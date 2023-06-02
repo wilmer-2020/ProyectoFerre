@@ -32,11 +32,22 @@
     <form action="" id="form">
         <h2 class="tittle-form">¡Haga su pedido aqui!</h2>
         <div class="datacontainer">
-            <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
-            <input type="text" name="numID" id="numID" placeholder="ID" required>
-            <input type="text" name="telefono" id="telefono" placeholder="Telefono" required>
-            <input type="text" name="direccion" id="direccion" placeholder="Direccion" required>
-            <input type="text" hidden name = "orden" id="orden">
+            <div class="form-group">
+                <input class="form-input" type="text" name="nombre" id="nombre" required placeholder=" ">
+                <label for="" class="form-label">Nombre</label>
+            </div>
+            <div class="form-group">
+                <input class="form-input" type="text" name="numID" id="numID" required placeholder=" ">
+                <label for="" class="form-label">ID</label>
+            </div>
+            <div class="form-group">
+                <input class="form-input" type="text" name="telefono" id="telefono" required placeholder=" ">
+                <label for="" class="form-label">Telefono</label>
+            </div>
+            <div class="form-group">
+                <input class="form-input" type="text" name="direccion" id="direccion" required placeholder=" ">
+                <label for="" class="form-label">Direccion</label>
+            </div>
         </div>
         <div class="containerItems">
             <label for="">Material</label>
