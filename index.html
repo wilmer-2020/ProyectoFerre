@@ -68,21 +68,24 @@
         </div>
     </form>
 </div>
-<table class="table">
-    <tr> 
-        <th>MATERIAL</th>
-        <th>CANTIDAD</th>
-        <th>PRECIO</th>
-        <th>TOTAL</th>
-        <th>ELIMINAR</th>
-    </tr>
+<table class="table"> 
+    <thead>
+        <tr>
+            <th>MATERIAL</th>
+            <th>CANTIDAD</th>
+            <th>PRECIO</th>
+            <th>TOTAL</th>
+            <th>ELIMINAR</th>
+         </tr>
+    </thead>
+   <tbody></tbody>
     <template class="template">
       <tr>
-        <td class="tdMaterial"></td>
-        <td class="tdCantidad"></td>
-        <td class="tdPreU"></td>
-        <td class="tdTotal"></td>
-        <td class="tdEliminar"></td>
+        <td class="tdMaterial" data-label="MATERIAL"></td>
+        <td class="tdCantidad" data-label="CANTIDAD"></td>
+        <td class="tdPreU" data-label="PRECIO"></td>
+        <td class="tdTotal" data-label="TOTAL"></td>
+        <td class="tdEliminar" data-label="*"></td>
       </tr>
     </template>
 </table>
