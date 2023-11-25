@@ -134,6 +134,7 @@ form .datacontainer .form-group .form-label {
   position: absolute;
   top: 0;
   left: 5px;
+  font-family: sans-serif;
   transition: 0.5s ease;
 }
 form .form-input:not(:-moz-placeholder-shown) + .form-label {
@@ -153,6 +154,9 @@ form .containerItems {
   display: flex;
   gap: 10px;
   flex-direction: column;
+}
+form .containerItems label {
+  font-family: sans-serif;
 }
 form .containerButtons {
   width: 90%;
