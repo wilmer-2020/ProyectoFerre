@@ -30,19 +30,22 @@
     </nav>
 </header>
     <form action="" id="form">
-        <h2 class="tittle-form">¡Haga su pedido aqui!</h2>
+        <h2 class="tittle-form">Ingrese los datos requeridos</h2>
         <div class="datacontainer">
             <div class="form-group">
                 <input class="form-input" type="text" name="nombre" id="nombre" required placeholder=" ">
                 <label for="" class="form-label">Nombre</label>
+                <p class="text-validation_name">El campo no acepta numeros</p>
             </div>
             <div class="form-group">
                 <input class="form-input" type="text" name="numID" id="numID" required placeholder=" ">
                 <label for="" class="form-label">ID</label>
+                <p class="text-validation_id">El campo no acepta texto, espacios y guiones</p>
             </div>
             <div class="form-group">
                 <input class="form-input" type="text" name="telefono" id="telefono" required placeholder=" ">
                 <label for="" class="form-label">Telefono</label>
+                <p class="text-validation_phone">El campo no acepta texto, espacios y guiones</p>
             </div>
             <div class="form-group">
                 <input class="form-input" type="text" name="direccion" id="direccion" required placeholder=" ">
@@ -50,6 +53,7 @@
             </div>
             <input type="text" id="orden" name="orden" hidden>
         </div>
+        <h2 class="tittle-form">Presione el boton CREAR y haga su pedido</h2>
         <div class="containerItems">
             <label for="">Material</label>
             <select name="" id="material" required></select>

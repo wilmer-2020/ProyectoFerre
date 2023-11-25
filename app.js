@@ -27,7 +27,7 @@ const modalVacio = document.querySelector('.modal_vacio');
 const modalEnviado = document.querySelector('.modal_enviado');
 const dataSend = [];
 const RegExp = {
-  nombre: /^[a-zA-Z\s]+$/,
+  nombre: /^[a-zA-Z\s]{1,100}$/,
   Id:/^[0-9\-]+$/,
 }
 document.addEventListener('DOMContentLoaded', getAll);
@@ -74,14 +74,16 @@ const createOrden = (data) => {
   orden.push(data);
 };
 
-const validateForm = (regEpx,input,campo) => {
-  if(regEpx.test(input)){
-    document.getElementById(`${campo}`).classList.remove('validate');
-    btnEnviar.disabled= false;
+const validateInput = (exprecion,input,campo) => {
+  if(exprecion.test(input)){
+    console.log('correcto')
+    document.querySelector(`.${campo}`).style='display:none';
+    btnEnviar.style='opacity:1'
   }else{
-    btnAdd.disabled = true;
-    btnEnviar.disabled= true;
-    document.getElementById(`${campo}`).classList.add('validate');
+    console.log('incorrecto')
+    document.querySelector(`.${campo}`).style='display:block';
+    btnAdd.disabled= true;
+     btnEnviar.style='opacity:0'
   }
 }
 
@@ -197,14 +199,18 @@ document.addEventListener("submit", (e) => {
   }
 });
 
-document.addEventListener('keyup', async (e) => {
-  let target = e.target.value;
-  if(e.target.matches("#nombre"))validateForm(RegExp.nombre,target,"nombre");
-  if(e.target.matches("#numID"))validateForm(RegExp.Id,target,"numID");
-  if(e.target.matches("#telefono"))validateForm(RegExp.Id,target,"telefono");
+const getTotal = async (e) => {
   if(e.target === $inputCantidad){
     let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
     $inputTotal.value = parseInt(querySnapshot.data().precio * $inputCantidad.value)
   }
+}
+
+
+document.addEventListener('keyup',(e) => {
+  if(e.target.matches('#nombre'))validateInput(RegExp.nombre, e.target.value,'text-validation_name');
+  if(e.target.matches('#numID'))validateInput(RegExp.Id, e.target.value,'text-validation_id');
+  if(e.target.matches('#telefono'))validateInput(RegExp.Id, e.target.value,'text-validation_phone');
+  getTotal(e)
 });

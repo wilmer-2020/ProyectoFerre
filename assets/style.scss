@@ -1,16 +1,18 @@
 $navColor: #fcfbfb;
 $tittleColor: #f8600b;
 @mixin btn($color) {
-  width: 100px;
+  width: 110px;
   padding: 5px;
   border-radius: 3px;
   background-color: $color;
   color: white;
   border: none;
   text-transform: uppercase;
-  box-shadow: 1px 1px 2px 1px gray;
+  transition: .3s ease;
+  box-shadow: 1px 1px 2px 1px rgb(190, 190, 190);
   &:hover {
-    background-color: red;
+    background-color: white;
+    color: $color;
   }
 }
 * {
@@ -94,6 +96,13 @@ header {
   clip-path: circle(100% at 50% 50%);
 }
 
+.tittle-form {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 17px;
+  margin: 10px;
+}
+
 form {
   width: 90%;
   margin-top: 100px;
@@ -102,9 +111,6 @@ form {
   flex-direction: column;
   background-color: white;
   box-shadow: 1px 1px 5px gray;
-  .tittle-form {
-    margin: auto;
-  }
   .datacontainer {
     display: flex;
     flex-direction: column;
@@ -115,12 +121,21 @@ form {
         position: relative;
         .form-input{
             width: 90%;
-            background: none;
+            background-color: transparent;
             color: #706c6c;
             padding:.6em .3em;
-            border: none;
+            border: transparent;
             border-bottom: 2px solid #eee;
             outline: none;
+        }
+        .text-validation_name,
+        .text-validation_id,
+        .text-validation_phone{
+          color: red;
+          font-size: 14px;
+          margin-top: 5px;
+          font-family: sans-serif;
+          display: none;
         }
         .form-label{
             color: #888888;
@@ -214,12 +229,8 @@ form {
     user-select: none;
     opacity: 1;
   }
-  }
-
-
-.validate {
-  background-color: red;
 }
+
 .bar1.active {
   transform: rotate(50deg) translateX(12px);
 }
