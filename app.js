@@ -82,7 +82,6 @@ const validateInput = (exprecion,input,campo) => {
   }else{
     console.log('incorrecto')
     document.querySelector(`.${campo}`).style='display:block';
-    btnAdd.disabled= true;
      btnEnviar.style='opacity:0'
   }
 }
