@@ -158,6 +158,13 @@ form .containerItems {
 form .containerItems label {
   font-family: sans-serif;
 }
+form .containerItems .text-validation_cantidad {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  font-family: sans-serif;
+  display: none;
+}
 form .containerButtons {
   width: 90%;
   height: 60px;

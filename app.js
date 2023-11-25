@@ -186,10 +186,9 @@ document.addEventListener("submit", (e) => {
         console.log(json);
         modalEnviado.classList.add('modal--show');
         form.reset();
-        let filas = table.getElementsByTagName('tr');
-        for (var i = filas.length - 1; i > 0; i--) {
-      table.removeChild(filas[i]);
-    }
+        $inputTotal.value = "";
+        table.innerHTML = '';
+        console.log(orden)
         })
         .catch((err) => {
           console.log(err);
@@ -200,16 +199,22 @@ document.addEventListener("submit", (e) => {
 
 const getTotal = async (e) => {
   if(e.target === $inputCantidad){
-    let select = $optionsProduct.value
-    const querySnapshot = await get(getProduct(select));
-    $inputTotal.value = parseInt(querySnapshot.data().precio * $inputCantidad.value)
+    
   }
 }
 
 
-document.addEventListener('keyup',(e) => {
+document.addEventListener('keyup', async (e) => {
   if(e.target.matches('#nombre'))validateInput(RegExp.nombre, e.target.value,'text-validation_name');
   if(e.target.matches('#numID'))validateInput(RegExp.Id, e.target.value,'text-validation_id');
   if(e.target.matches('#telefono'))validateInput(RegExp.Id, e.target.value,'text-validation_phone');
-  getTotal(e)
+  if(e.target === $inputCantidad && !isNaN($inputCantidad.value)){
+    let select = $optionsProduct.value
+    const querySnapshot = await get(getProduct(select));
+    $inputTotal.value = parseInt(querySnapshot.data().precio * $inputCantidad.value);
+    document.querySelector('.text-validation_cantidad').style='display:none';
+  }else{
+    document.querySelector('.text-validation_cantidad').style='display:block';
+    console.log('invalid')
+  }
 });

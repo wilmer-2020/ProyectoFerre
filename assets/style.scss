@@ -165,6 +165,13 @@ form {
     label{
       font-family: sans-serif;
     }
+    .text-validation_cantidad{
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      font-family: sans-serif;
+      display: none;
+    }
   }
   .containerButtons {
     width: 90%;
