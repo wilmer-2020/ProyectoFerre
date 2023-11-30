@@ -241,7 +241,7 @@ form .containerButtons > div {
   width: 90%;
   margin: 0.8rem auto;
   height: calc(80% - 0.8rem);
-  background-color: #e2e2e2;
+  background-color: #ececec;
   text-align: left;
   overflow: auto;
   font-family: sans-serif;
@@ -257,6 +257,12 @@ form .containerButtons > div {
   background-color: #96bda0;
   color: white;
 }
+.table tbody tr:nth-child(even) {
+  background-color: rgb(223, 223, 223);
+}
+.table tbody tr:hover {
+  background-color: #eaffee;
+}
 .table .btnEliminar {
   padding: 5px 15px;
   border-radius: 5px;
@@ -268,6 +274,7 @@ form .containerButtons > div {
      -moz-user-select: none;
           user-select: none;
   opacity: 1;
+  text-transform: uppercase;
 }
 
 .bar1.active {
