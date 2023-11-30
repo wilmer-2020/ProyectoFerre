@@ -216,6 +216,7 @@ form {
   background-color: #e2e2e2;
   text-align: left;
   overflow: auto;
+  font-family: sans-serif;
   &,th,td{
     padding: .5rem;
     border-collapse: collapse;
@@ -227,7 +228,6 @@ form {
       left: 0;
       background-color: #96bda0;
       color: white;
-      font-family: sans-serif;
   }
 
  

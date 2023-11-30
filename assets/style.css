@@ -243,6 +243,7 @@ form .containerButtons > div {
   background-color: #e2e2e2;
   text-align: left;
   overflow: auto;
+  font-family: sans-serif;
 }
 .table, .table th, .table td {
   padding: 0.5rem;
@@ -254,7 +255,6 @@ form .containerButtons > div {
   left: 0;
   background-color: #96bda0;
   color: white;
-  font-family: sans-serif;
 }
 .table .btnEliminar {
   padding: 5px 15px;
