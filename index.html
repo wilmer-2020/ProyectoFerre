@@ -26,8 +26,8 @@
     </nav>
 </header>
     <form action="" id="form">
-        <h2 class="tittle-form">Ingrese los datos requeridos</h2>
         <div class="datacontainer">
+            <h2 class="tittle-form">Ingrese los datos requeridos</h2>
             <div class="form-group">
                 <input class="form-input" type="text" name="nombre" id="nombre" required placeholder=" ">
                 <label for="" class="form-label">Nombre</label>
@@ -49,8 +49,8 @@
             </div>
             <input type="text" id="orden" name="orden" hidden>
         </div>
-        <h2 class="tittle-form">Presione el boton CREAR y haga su pedido</h2>
         <div class="containerItems">
+            <h2 class="tittle-form">Presione el boton CREAR y haga su pedido</h2>
             <label for="">Material</label>
             <select name="" id="material" required></select>
             <label for="">Cantidad</label>
@@ -63,11 +63,13 @@
             <label for="">Total a Pagar</label>
             <input type="text" name="totalPagar" id="txtPagar" disabled>
         </div>
-        <h2 class="tittle-form">Presione el boton AÑADIR para agregar el pedido a la lista</h2>
         <div class="containerButtons">
+            <h2 class="tittle-form">Presione el boton AÑADIR para agregar el pedido a la lista</h2>
+            <div>
             <input type="button" value="Crear" class="buttonCreate">
             <input type="button" value="añadir" class="buttonAdd">
-        <input type="submit" value="Enviar Orden" class="btnEnviar">
+            <input type="submit" value="Enviar Orden" class="btnEnviar">
+            </div>
         </div>
     </form>
 </div>
@@ -81,7 +83,15 @@
             <th>ELIMINAR</th>
          </tr>
     </thead>
-   <tbody></tbody>
+   <tbody>
+    <tr>
+        <td>mate</td>
+        <td>mate</td>
+        <td>mate</td>
+        <td>mate</td>
+        <td>mate</td>
+    </tr>
+   </tbody>
     <template class="template">
       <tr>
         <td class="tdMaterial" data-label="MATERIAL"></td>

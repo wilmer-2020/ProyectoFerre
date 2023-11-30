@@ -34,7 +34,7 @@ header {
   background-position: center center;
   nav {
     width: 100%;
-    height: 70px;
+    height: 50px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -46,10 +46,12 @@ header {
     .tittle {
       z-index: -1;
       color: $tittleColor;
+      font-family: sans-serif;
     }
+
     .menu {
       width: 100%;
-      height: 100vh;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -69,7 +71,12 @@ header {
         color: $tittleColor;
         font-family: sans-serif;
         font-size: 1.5rem;
-        padding: 10px;
+        padding: 14px;
+        transition: .3s ease;
+        &:hover{
+          color: white;
+          background-color: $tittleColor;
+        }
       }
     }
     .btnMenu {
@@ -92,6 +99,7 @@ header {
     }
   }
 }
+
 .menu.active {
   clip-path: circle(100% at 50% 50%);
 }
@@ -106,7 +114,7 @@ header {
 form {
   width: 90%;
   margin-top: 30px;
-  height: 730px;
+  height: 770px;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -156,14 +164,16 @@ form {
     color: $tittleColor;
   }
   .containerItems {
-    width: 60%;
+    width: 90%;
     margin: 20px 40px;
     display: flex;
     gap: 10px;
     flex-direction: column;
-
     label{
       font-family: sans-serif;
+    }
+    input,select{
+      width: 90%;
     }
     .text-validation_cantidad{
       color: red;
@@ -179,58 +189,48 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: column;
     gap: 20px;
-    margin:auto;
+    margin:-20px auto;
     .buttonAdd {
-      @include btn(rgba(1, 1, 114, 0.719));
+      @include btn(#43a193);
     }
     .buttonCreate {
-      @include btn(rgb(1, 1, 114));
+      @include btn($tittleColor);
     }
     .btnEnviar {
-      @include btn(rgba(1, 150, 1, 0.671));
+      @include btn(#4ac21e);
+    }
+    &>div{
+      display: flex;
+      align-items: center;
+      padding: 3px 50px;
+      gap: 20px;
     }
   }
 }
 .table {
   width: 90%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  &,& tbody,& tr,& td{
-    display: block;
-  }
-  & tr{
-    margin-bottom: 10px;
-  }
-  & tbody tr td{
-    position: relative;
-    color: rgb(0, 0, 0);
-    padding: 8px;
-    background-color:rgb(255, 255, 255);
-    border: 1px solid white;
-    text-align: right;
-    border-bottom: 1px solid rgb(153, 153, 153);
-  }
-  & td:before{
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 30%;
-    padding-left:10px;
-    font-weight: 600;
-    font-size: 1em;
-    text-align: left;
-    background-color: rgb(37, 37, 37);
-    color: orangered;
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-   thead{
-    display: none;
+  margin: .8rem auto;
+  height: calc(80% - .8rem);
+  background-color: #e2e2e2;
+  text-align: left;
+  overflow: auto;
+  &,th,td{
+    padding: .5rem;
+    border-collapse: collapse;
   }
 
+  thead th{
+      position: sticky;
+      top: 0;
+      left: 0;
+      background-color: #96bda0;
+      color: white;
+      font-family: sans-serif;
+  }
+
+ 
   .btnEliminar{
     padding: 5px 15px;
     border-radius: 5px;
@@ -330,4 +330,66 @@ form {
 .modal--show {
   display: block;
   pointer-events: initial;
+}
+
+//portrait tablets and large phones
+@media screen and (min-width: 600px) {
+  header nav .menu{
+    flex-direction: row;
+    justify-content: space-around;
+    position: relative;
+    width: 400px;
+    height: 70px;
+    background-color: transparent;
+    clip-path: circle(100% at 50% 50%);
+  }
+
+  header nav .btnMenu{
+    display: none;
+  }
+
+  header nav .menu li a{
+    font-size: 20px;
+  }
+}
+
+//Medium devices (landscape tablets
+@media only screen and (min-width: 768px) {
+ 
+}
+
+//laptops/desktops
+@media only screen and (min-width: 992px) {
+  form{
+    width: 95%;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 500px 100px;
+    .datacontainer{
+      grid-column: 1/2;
+      grid-row: 1/2;
+      align-items: center;
+      justify-content: center;
+      h2{
+        text-align: center;
+      }
+    }
+    .containerItems{
+      grid-column: 2/3;
+      grid-row: 1/2;
+      justify-content: center;
+      h2{
+        text-align: center;
+      }
+    }
+    .containerButtons{
+      grid-column: 2/3;
+      grid-row: 2/3;
+      h2{
+        text-align: center;
+      }
+    }
+  }
+
 }

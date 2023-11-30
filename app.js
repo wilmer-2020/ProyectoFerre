@@ -1,6 +1,4 @@
-import { 
-  getProduct, get,documentos
-} from "./backConfig.js";
+import { getProduct, get,documentos} from "./backConfig.js";
 let form = document.querySelector('form');
 let $template = document.querySelector(".template").content;
 let $fragment = document.createDocumentFragment();
@@ -208,7 +206,7 @@ document.addEventListener('keyup', async (e) => {
   if(e.target.matches('#nombre'))validateInput(RegExp.nombre, e.target.value,'text-validation_name');
   if(e.target.matches('#numID'))validateInput(RegExp.Id, e.target.value,'text-validation_id');
   if(e.target.matches('#telefono'))validateInput(RegExp.Id, e.target.value,'text-validation_phone');
-  if(e.target === $inputCantidad && !isNaN($inputCantidad.value)){
+  if(e.target.matches('#txtCantidad') && !isNaN($inputCantidad.value)){
     let select = $optionsProduct.value
     const querySnapshot = await get(getProduct(select));
     $inputTotal.value = parseInt(querySnapshot.data().precio * $inputCantidad.value);
