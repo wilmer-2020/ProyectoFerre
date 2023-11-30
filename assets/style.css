@@ -166,6 +166,7 @@ form .containerItems label {
 }
 form .containerItems input, form .containerItems select {
   width: 90%;
+  outline: none;
 }
 form .containerItems .text-validation_cantidad {
   color: red;
