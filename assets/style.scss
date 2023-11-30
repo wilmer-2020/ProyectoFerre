@@ -34,9 +34,9 @@ header {
   background-position: center center;
   nav {
     width: 100%;
-    height: 70px;
+    height: 60px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: $navColor;
     z-index: 300;
@@ -47,6 +47,7 @@ header {
       z-index: -1;
       color: $tittleColor;
       font-family: sans-serif;
+      margin-left: 10px;
     }
 
     .menu {
@@ -87,6 +88,7 @@ header {
       flex-direction: column;
       justify-content: center;
       margin-top: 5px;
+      margin-right: 15px;
       span {
         display: block;
         width: 100%;
@@ -345,6 +347,7 @@ form {
 //portrait tablets and large phones
 @media screen and (min-width: 600px) {
   header nav{
+    justify-content: space-around;
     height: 50px;
   }
   header nav .menu{
@@ -374,6 +377,7 @@ form {
 //laptops/desktops
 @media only screen and (min-width: 992px) {
   header nav{
+    justify-content: space-around;
     height: 50px;
   }
   form{
