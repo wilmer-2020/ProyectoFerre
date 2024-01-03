@@ -76,10 +76,12 @@ const validateInput = (exprecion,input,campo) => {
   if(exprecion.test(input)){
     console.log('correcto')
     document.querySelector(`.${campo}`).style='display:none';
+    btnAdd.style='opacity:1'
     btnEnviar.style='opacity:1'
   }else{
     console.log('incorrecto')
     document.querySelector(`.${campo}`).style='display:block';
+     btnAdd.style='opacity:0'
      btnEnviar.style='opacity:0'
   }
 }
