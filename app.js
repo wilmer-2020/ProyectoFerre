@@ -179,6 +179,10 @@ document.addEventListener("submit", (e) => {
     if (e.target === form){
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
         method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      },
         body: new FormData(e.target),
         mode: "no-cors"
       })
