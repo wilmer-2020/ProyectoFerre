@@ -151,7 +151,7 @@ document.addEventListener("click", (e) => {
       desabilitar();
       createOrden(OrdenData);
       orden.forEach(el =>{
-        dataSend.push(`PRODUCTO:${el.product} CANTIDAD:${el.cantidad}`)
+        dataSend.push(`PRODUCTO:${el.product} CANTIDAD:${el.cantidad}`+"<br>")
       })
       $inputOrden.value = [...new Set(dataSend)];
     }
@@ -180,6 +180,7 @@ document.addEventListener("submit", (e) => {
       fetch("https://formsubmit.co/ajax/alfredomontes1970@gmail.com", {
         method: "POST",
         body: new FormData(e.target),
+        mode: "no-cors"
       })
         .then((res) => (res.ok ? res.json : Promise.reject(res)))
         .then((json) => {
